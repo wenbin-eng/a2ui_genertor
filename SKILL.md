@@ -117,6 +117,7 @@ NEVER hallucinate component APIs. The ONLY sources of truth are the **HTML5 Elem
 1. Translate the plan into A2UI JSON strictly following the protocol in `references/a2ui_protocol.md`.
 2. Inject enriched data into `state`, bind via `path`.
 3. Apply Tailwind classes to `className` strictly adhering to `references/design_system.md`.
+4. Refer to `references/examples.md` for syntax reference (card, list, tabs, form, full page).
 
 ### Step 5 — Validation (MANDATORY — no exceptions)
 **Before outputting the final JSON, you MUST run the validation script.** This is a HARD gate, not a suggestion.
@@ -209,7 +210,7 @@ For **module-level** generation: `rootId` is the module's outer container.
 14. **Array brackets (JSON #1 killer bug):** Every array value MUST be wrapped in `[ ]` — never write consecutive `{...}, {...}` without brackets.
     - ❌ WRONG: `"items": { "title": "A" }, { "title": "B" }`
     - ✅ RIGHT: `"items": [{ "title": "A" }, { "title": "B" }]`
-    - Strikes hardest in `state` data when output json is long. Every array MUST start with `[` and end with `]`.
+    - Strikes hardest in `state` data when output JSON is long. Every array MUST start with `[` and end with `]`.
 15. **Schema lock:** Every element MUST use `"id"`, `"component"`, `"props"`, `"children"` — NEVER `"type"`/`"class"`/`"style"`/`"tagName"`/`"attributes"`. Common confusions:
     - `"component"` not ~~`"type"`~~
     - `"props"` not ~~`"properties"`~~, ~~`"attributes"`~~
