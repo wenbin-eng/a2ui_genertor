@@ -119,32 +119,19 @@ NEVER hallucinate component APIs. The ONLY sources of truth are the **HTML5 Elem
 3. Apply Tailwind classes to `className` strictly adhering to `references/design_system.md`.
 4. Refer to `references/examples.md` for syntax reference (card, list, tabs, form, full page).
 
-### Step 5 — Validation (MANDATORY — no exceptions)
-**Before outputting the final JSON, you MUST run the validation script.** This is a HARD gate, not a suggestion.
+### Step 5 — Save & Validate (MANDATORY)
 
-1. **Ensure the `output` folder exists** (run `mkdir -p output` via Bash if not present). Then generate a unique filename using a timestamp to avoid overwriting previous results:
-   ```
-   filename="a2ui-output-$(date +%Y%m%d-%H%M%S).json"
-   ```
-   Then **use the Write tool** to write the generated JSON to `output/$filename`. Do NOT write to system temp directories — path issues are common there.
-2. Run the validation script with --fix (auto-repairs bracket errors). Use the Bash tool, replacing `$filename` with the actual name from step 1:
-   ```
-   node <base-directory>/scripts/validate-a2ui.mjs output/$filename --fix
-   ```
-   Replace `<base-directory>` with the actual absolute path of this skill's directory.
-3. **If the script reports FAIL** (non-bracket syntax errors that -Fix cannot handle):
-   - Read the error messages to locate the exact lines.
-   - Use the Edit tool to fix the JSON file.
-   - Re-run the script.
-   - Repeat until the script outputs `RESULT: PASS`.
-4. **If the script reports PASS**: read the validated file content and output it as the final result.
-5. **NEVER output JSON that has not passed validation.**
+Save the generated JSON to a file, then validate it. NEVER output JSON that has not passed validation.
 
-> ⚠️ **CRITICAL — File writing rules:**
-> - **ALWAYS** use the **Write tool** to create/write JSON files.
-> - **NEVER** use bash `echo`, `cat` heredoc, or any command-line method to write JSON content — the command line has a length limit (~32KB) and large JSON WILL fail.
-> - The Write tool has no size limit and handles large files correctly.
-> - Write to `output/` in the workspace root, NOT to system temp directories.
+1. **Save to file:** Ensure `output/` exists (`mkdir -p output` if needed), then **use the Write tool** to write the JSON to `output/a2ui-output.json`.
+   - **ALWAYS** use the Write tool — NEVER bash `echo`/heredoc (command-line ~32KB limit, large JSON WILL fail).
+   - Write to `output/` in the workspace root, NOT system temp directories.
+2. **Validate:** Run the script with `--fix` (auto-repairs bracket errors):
+   ```
+   node scripts/validate-a2ui.mjs output/a2ui-output.json --fix
+   ```
+3. **If FAIL:** Read errors → use the Edit tool to fix the JSON → re-run. Repeat until `RESULT: PASS`.
+4. **If PASS:** Read the validated file (the `--fix` flag may have changed it) and output as the final result.
 
 ---
 
