@@ -14,7 +14,7 @@
 类型: StaticChildren
 > The drawer body content.
 
-## 设计规范
+------
 
 # Drawer 抽屉使用规范
 
@@ -43,12 +43,11 @@
 - 不要在 `children` 和 `footer` 中放重复的操作入口；操作按钮统一放 `footer`。
 - 不要臆造 API 未定义的属性（如 width、height、closable 等），需要时再补充。
 
+------
 
-## 示例
+# Drawer 示例
 
-# Drawer
-
-### Example: A detail drawer triggered by a button, sliding in from the right. `open` / `onClose` bind to the same shared boolean state, the body is a single wrapper node passed to `children`, and the footer is rendered via a SlotNode.
+## Example: A detail drawer triggered by a button, sliding in from the right. `open` / `onClose` bind to the same shared boolean state, the body is a single wrapper node passed to `children`, and the footer is rendered via a SlotNode.
 
 ```json
 {
@@ -140,7 +139,7 @@
 }
 ```
 
-### Example: Drawer element only, no footer (`footer` omitted). Body content is still a single wrapper node.
+## Example: Drawer element only, no footer (`footer` omitted). Body content is still a single wrapper node.
 
 ```json
 {
@@ -164,4 +163,3 @@
   "props": { "className": "text-sm text-on-surface", "value": "在此放置筛选表单内容。" }
 }
 ```
-

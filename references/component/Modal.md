@@ -13,7 +13,7 @@
 类型: StaticChildren
 > The modal body content.
 
-## 设计规范
+------
 
 # Modal 模态弹窗使用规范
 
@@ -41,12 +41,11 @@
 - 不要在 `children` 和 `footer` 中放重复的操作入口；关闭/确认类按钮统一放 `footer`。
 - 不要臆造 API 未定义的属性（如 width、centered 等），需要时再补充。
 
+------
 
-## 示例
+# Modal 示例
 
-# Modal
-
-### Example: A detail modal triggered by a button. `open` / `onClose` bind to the same shared boolean state, the body is a single wrapper node passed to `children`, and the footer is rendered via a SlotNode.
+## Example: A detail modal triggered by a button. `open` / `onClose` bind to the same shared boolean state, the body is a single wrapper node passed to `children`, and the footer is rendered via a SlotNode.
 
 ```json
 {
@@ -137,7 +136,7 @@
 }
 ```
 
-### Example: Modal element only, no footer (`footer` omitted). Body content is still a single wrapper node.
+## Example: Modal element only, no footer (`footer` omitted). Body content is still a single wrapper node.
 
 ```json
 {
@@ -160,4 +159,3 @@
   "props": { "className": "text-sm text-on-surface", "value": "删除后不可恢复，确定要继续吗？" }
 }
 ```
-
