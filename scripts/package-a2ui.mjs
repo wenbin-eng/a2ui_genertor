@@ -74,9 +74,9 @@ if (!existsSync(artifactFolder) || !statSync(artifactFolder).isDirectory()) {
 const previewdist = resolve(__dirname, 'previewdist');
 if (!existsSync(previewdist)) fail(`previewdist template not found: ${previewdist}`);
 const assetsSrc = join(previewdist, 'assets');
-const htmlSrc = join(previewdist, 'index.html');
+const htmlSrc = join(previewdist, 'index.prototype.html');
 if (!existsSync(assetsSrc)) fail(`template assets missing: ${assetsSrc}`);
-if (!existsSync(htmlSrc)) fail(`template index.html missing: ${htmlSrc}`);
+if (!existsSync(htmlSrc)) fail(`template index.prototype.html missing: ${htmlSrc}`);
 
 // ---------- 2. validate slug (kebab-case ascii, 2-6 segments) ----------
 if (!/^[a-z0-9]+(-[a-z0-9]+){1,5}$/.test(slug)) {
@@ -89,7 +89,7 @@ const jsonRaw = readFileSync(jsonFile, 'utf8').trim();
 if (!jsonRaw) fail(`JsonFile is empty: ${jsonFile}`);
 
 // ---------- 4. prepare destination ----------
-const dest = join(artifactFolder, `${slug}.prototype`);
+const dest = join(artifactFolder, slug);
 mkdirSync(dest, { recursive: true });
 
 // ---------- 5. link assets (junction/symlink preferred; cpSync fallback) ----------
@@ -125,8 +125,8 @@ if (!assetsReady) fail(`Could not link or copy assets to: ${assetsDst}`);
 const runtimeJs = readdirSync(assetsDst).find((f) => /^index-.*\.js$/.test(f));
 if (!runtimeJs) fail(`assets/ has no index-*.js — link/copy incomplete at: ${assetsDst}`);
 
-// ---------- 6. copy + rename HTML (small ~21KB) ----------
-const htmlDst = join(dest, `${slug}.prototype.html`);
+// ---------- 6. copy HTML as-is (small ~21KB, no rename) ----------
+const htmlDst = join(dest, 'index.prototype.html');
 copyFileSync(htmlSrc, htmlDst);
 
 // ---------- 7. inject data.js (UTF-8 no BOM) ----------
